@@ -10,5 +10,15 @@ for further detail.
 
 You can see the [demo version live at](https://eth-global-hackathon.vercel.app/) , but the
 site will soon be live on [criptotianguis.mx](https://criptotianguis.mx/).
+   
+   
+The app was created using NextJS with Tailwind.    
+1) You can see [how to add Tailwind to NextJS here](https://tailwindcss.com/docs/guides/nextjs).
 
-Chanclas del Tianguis
+2) I used Stepzen with Supabase for db, [stepzen/supabase guide](https://stepzen.com/getting-started)
+3) And Apollo to query Stepzen: `npm install @apollo/client graphql`
+
+
+Chanclas del Tianguis   
+   
+`Telegram : @criptotianguismx`
