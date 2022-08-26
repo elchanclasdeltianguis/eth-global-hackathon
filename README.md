@@ -1,2 +1,13 @@
 # eth-global-hackathon
-eth global entry
+
+### ETH Global Mexico 2022 entry
+This repo shows the code I wrote for my submission at ETH Global Mexico 2022.   
+It has since been cleaned for secrets that I accidentally comitted, and will not work if you run it as
+it won't connect to the db or show the products.   
+   
+Please refer to [the Submission on ETH GLOBAL website](https://ethglobal.com/showcase/criptotianguis-mx-eb3dw)
+for further detail.
+
+Site will be live on [criptotianguis.mx](https://criptotianguis.mx/)
+
+Chanclas del Tianguis
