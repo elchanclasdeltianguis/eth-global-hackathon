@@ -8,6 +8,7 @@ it won't connect to the db or show the products.
 Please refer to [the Submission on ETH GLOBAL website](https://ethglobal.com/showcase/criptotianguis-mx-eb3dw)
 for further detail.
 
-Site will be live on [criptotianguis.mx](https://criptotianguis.mx/)
+You can see the [demo version live at](https://eth-global-hackathon.vercel.app/) , but the
+site will soon be live on [criptotianguis.mx](https://criptotianguis.mx/).
 
 Chanclas del Tianguis
