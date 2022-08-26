@@ -1,0 +1,223 @@
+type Chain {
+  chain_id: ID!
+  chain_name: String
+  chain_symbol: String
+  created_at: DateTime
+  id: ID!
+  ordersList: [Orders] @materializer(query: "getOrdersUsingChain_id")
+}
+
+type Orders {
+  amount_mxn: Float
+  amount_token: Float
+  chain: Chain @materializer(query: "getChain")
+  chain_id: ID
+  created_at: DateTime
+  id: ID!
+  input_field: String
+  product_code: String
+  token: String
+  tokenUsingToken: Token
+    @materializer(
+      query: "getToken"
+      arguments: [{ name: "symbol", field: "token" }]
+    )
+  tx: String!
+  user_address: String
+  users: Users
+    @materializer(
+      query: "getUsers"
+      arguments: [{ name: "address", field: "user_address" }]
+    )
+}
+
+type Token {
+  created_at: DateTime
+  id: ID!
+  ordersList: [Orders] @materializer(query: "getOrdersUsingToken")
+  symbol: String!
+}
+
+type Users {
+  address: String!
+  created_at: DateTime
+  id: ID!
+  ordersList: [Orders] @materializer(query: "getOrdersUsingUser_address")
+}
+
+"""
+These are some examples of queries generated from the schema. Feel free to modify them or add your own.
+"""
+type Query {
+  getChainList: [Chain]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "chain"
+      configuration: "postgresql_config"
+    )
+  getChain(chain_id: ID!): Chain
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "chain"
+      configuration: "postgresql_config"
+    )
+  getOrdersUsingChain_id(chain_id: ID!): [Orders]
+    @dbquery(
+      type: "postgresql"
+      query: """
+      SELECT T."amount_mxn", T."amount_token", T."chain_id", T."created_at", T."id", T."input_field", T."product_code", T."token", T."tx", T."user_address"
+        FROM "public"."orders" T
+        WHERE T."chain_id" = $1
+      """
+      configuration: "postgresql_config"
+    )
+  getOrdersList: [Orders]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "orders"
+      configuration: "postgresql_config"
+    )
+  getOrders(tx: String!): Orders
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "orders"
+      configuration: "postgresql_config"
+    )
+  getTokenList: [Token]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "token"
+      configuration: "postgresql_config"
+    )
+  getToken(symbol: String!): Token
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "token"
+      configuration: "postgresql_config"
+    )
+  getOrdersUsingToken(symbol: String!): [Orders]
+    @dbquery(
+      type: "postgresql"
+      query: """
+      SELECT T."amount_mxn", T."amount_token", T."chain_id", T."created_at", T."id", T."input_field", T."product_code", T."token", T."tx", T."user_address"
+        FROM "public"."orders" T
+        WHERE T."token" = $1
+      """
+      configuration: "postgresql_config"
+    )
+  getUsersList: [Users]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "users"
+      configuration: "postgresql_config"
+    )
+  getUsers(address: String!): Users
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "users"
+      configuration: "postgresql_config"
+    )
+  getOrdersUsingUser_address(address: String!): [Orders]
+    @dbquery(
+      type: "postgresql"
+      query: """
+      SELECT T."amount_mxn", T."amount_token", T."chain_id", T."created_at", T."id", T."input_field", T."product_code", T."token", T."tx", T."user_address"
+        FROM "public"."orders" T
+        WHERE T."user_address" = $1
+      """
+      configuration: "postgresql_config"
+    )
+}
+
+"""
+These are some examples of mutations generated from the schema. Feel free to modify them or add your own.
+"""
+type Mutation {
+  insertChain(
+    created_at: DateTime!
+    chain_id: ID!
+    chain_name: String!
+    chain_symbol: String!
+  ): Chain
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "chain"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  deleteChain(chain_id: ID!): Chain
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "chain"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertOrders(
+    product_code: String!
+    tx: String!
+    created_at: DateTime!
+    user_address: String!
+    input_field: String!
+    chain_id: ID!
+    amount_token: Float!
+    amount_mxn: Float!
+    token: String!
+  ): Orders
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "orders"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  deleteOrders(tx: String!): Orders
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "orders"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertToken(created_at: DateTime!, symbol: String!): Token
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "token"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  deleteToken(symbol: String!): Token
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "token"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertUsers(created_at: DateTime!, address: String!): Users
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "users"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  deleteUsers(address: String!): Users
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "users"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+}
