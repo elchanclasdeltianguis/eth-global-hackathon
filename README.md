@@ -21,4 +21,4 @@ The app was created using NextJS with Tailwind.
 
 Chanclas del Tianguis   
    
-`Telegram : @criptotianguismx`
+`Telegram : @chanclasdeltianguis`
